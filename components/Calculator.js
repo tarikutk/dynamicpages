@@ -3,14 +3,14 @@ import {
   Box,
   Paper,
   TextField,
-  InputLabel,
   MenuItem,
   FormControl,
-  Select,
+  NativeSelect,
   Button,
   Divider,
   Typography,
 } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 import axios from "axios";
 
 import { useState } from "react";
@@ -42,7 +42,7 @@ const Calculator = () => {
   };
 
   return (
-    <form onSubmit={handleCalculate}>
+    <form id="calculator-form" onSubmit={handleCalculate}>
       <Grid2 container spacing={1}>
         <Grid2 xs={5}>
           <FormControl fullWidth>
@@ -51,19 +51,21 @@ const Calculator = () => {
         </Grid2>
         <Grid2 xs={2}>
           <FormControl fullWidth>
-            <Select
-              id="operation-select"
-              value={operation}
+            <NativeSelect
+              input={<OutlinedInput />}
+              defaultValue={""}
+              inputProps={{
+                name: "operation",
+                id: "operation",
+              }}
               onChange={handleChange}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"add"}>+</MenuItem>
-              <MenuItem value={"subtract"}>-</MenuItem>
-              <MenuItem value={"multiply"}>*</MenuItem>
-              <MenuItem value={"divide"}>/</MenuItem>
-            </Select>
+              <option value="">Op</option>
+              <option value={"add"}>+</option>
+              <option value={"subtract"}>-</option>
+              <option value={"multiply"}>*</option>
+              <option value={"divide"}>/</option>
+            </NativeSelect>
           </FormControl>
         </Grid2>
         <Grid2 xs={5}>
