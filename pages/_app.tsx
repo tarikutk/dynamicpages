@@ -6,6 +6,11 @@ import "@fontsource/roboto/700.css";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import type { AppProps } from 'next/app'
+
+// if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+//   require('../mocks')
+// }
 
 const darkTheme = createTheme({
   palette: {
@@ -13,7 +18,7 @@ const darkTheme = createTheme({
   },
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps } : AppProps): JSX.Element {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
