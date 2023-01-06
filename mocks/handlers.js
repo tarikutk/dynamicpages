@@ -22,18 +22,11 @@ export const handlers = [
           throw new Error(`Unsupported operation ${params.operation}`);
       }
         return res(
+          ctx.delay(200),
           ctx.status(200),
           ctx.json({
-            result: 3,
+            result: result,
           })
         )
-      }),
-      rest.get('/api/calculate/divide/4/8', (req, res, ctx) => {
-          return res(
-            ctx.status(200),
-            ctx.json({
-              result: 0.5,
-            })
-          )
-        })
+      })
   ]

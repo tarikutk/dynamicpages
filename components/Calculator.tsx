@@ -14,9 +14,15 @@ import { OutlinedInput } from "@mui/material";
 import Alert from '@mui/material/Alert';
 import axios from "axios";
 
-import { useState, useRef, ChangeEvent, FormEvent, FocusEvent } from "react";
+import { useState, useRef, ChangeEvent, FormEvent, FocusEvent, useEffect } from "react";
+import { PropaneSharp } from "@mui/icons-material";
 
-const Calculator = () : JSX.Element => {
+  interface QueryParams {
+    operation: string;
+    first: string;
+    second: string;
+  }
+const Calculator = (props : QueryParams) : JSX.Element => {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState("");
   const [firstError, setFirstError] = useState("")
@@ -25,10 +31,23 @@ const Calculator = () : JSX.Element => {
   const first = useRef<HTMLInputElement>();
   const second = useRef<HTMLInputElement>();
   const operationRef = useRef<HTMLSelectElement>();
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleChange = (e : ChangeEvent<HTMLSelectElement>) => {
     setOperation(e.target.value);
   };
+  
+  useEffect(()=>{
+      if(first.current && props.operation) {
+         first.current.value = props.first
+      }
+      if(second.current && props.second) {
+        second.current.value = props.second
+     }
+
+     if(props.operation) {
+      setOperation(props.operation)
+     }
+       },[])
 
   const handleFocus= (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     switch(e.target) {
@@ -48,14 +67,16 @@ const Calculator = () : JSX.Element => {
 
   const handleCalculate = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const query = {
       operation: operation,
       first: first.current?.value,
       second: second.current?.value,
     };
+    console.log('props', props)
     
     if(!query.first){
-      setFirstError('first cannot be empty')
+      setFirstError('first cannot be em')
     }
 
     if(!query.second){
@@ -66,8 +87,7 @@ const Calculator = () : JSX.Element => {
       setOpError('operation cannot be empty');
     }
     
-    if(firstError || secondError || opError){
-    console.log('errors',{firstError, secondError, opError})
+    if(!query.first || !query.second || !query.operation){
       return;
     }
     
@@ -75,10 +95,12 @@ const Calculator = () : JSX.Element => {
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
         setResult(res.data.result);
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log('catch', err)
         setResult(err.response.data.message);
+        setIsLoading(false)
       });
   };
 
@@ -102,7 +124,7 @@ const Calculator = () : JSX.Element => {
             <NativeSelect
               error={!!opError}
               input={<OutlinedInput />}
-              defaultValue={""}
+              defaultValue={props.operation}
               inputProps={{
                 name: "operation",
                 id: "operation",
@@ -131,13 +153,13 @@ const Calculator = () : JSX.Element => {
             />
           </FormControl>
         </Grid2>
+        <Grid2 xs={12}>
           { firstError ? <Alert severity="error">first cannot be empty</Alert> : ''}
           { secondError ? <Alert severity="error">second cannot be empty</Alert> : ''}
           { opError ? <Alert severity="error">operatiion cannot be empty</Alert>:""}
-        <Grid2 xs={12}>
           <FormControl fullWidth>
-            <Button variant="contained" type="submit">
-              Calculate
+            <Button variant="contained" type="submit" disabled={isLoading}>
+              Calculate abc
             </Button>
           </FormControl>
         </Grid2>

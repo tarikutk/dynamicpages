@@ -2,7 +2,7 @@ export const add = (first : number, second : number) : number => {
   if (isNaN(first) || isNaN(second) || first === null || second === null) {
     throw new Error("Expected numbers");
   }
-  return first + second;
+  return Number(first) + Number(second);
 };
 
 export const subtract = (first : number, second : number) : number => {

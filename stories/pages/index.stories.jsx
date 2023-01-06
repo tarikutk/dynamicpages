@@ -1,27 +1,11 @@
 import React from "react";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-
 import Home from "../../pages/index";
 const info = {
   title: "Calculator/HomePage",
   component: Home,
   parameters: {
-  //   mockData: [
-  //     {
-  //         url: '/api/calculate/add/1/2',
-  //         method: 'GET',
-  //         status: 200,
-  //         response: (request) => {
-  //           const { body, searchParams } = request;
-  //           console.log('the requesst----------------', {request, body, searchParams});
-
-  //           return {
-  //               result: 3
-  //           }
-  //         }
-  //     }
-  // ],
   },
 };
 export default info;
@@ -30,6 +14,13 @@ const Template = (args) => <Home {...args}/>;
 export const Default = Template.bind({});
 Default.parameters = {
     theme: 'dark',
+  }
+
+export const passParams = Template.bind({});
+passParams.args = {
+    operation: 'multiply',
+    first: '2',
+    second: '2'
   }
 export const InteractiveTest = Template.bind({});
 InteractiveTest.play = async ({ canvasElement }) => {
@@ -46,5 +37,6 @@ InteractiveTest.play = async ({ canvasElement }) => {
     //  expect(canvas.getByRole('alert')).toBeInTheDocument()});
     // expect(canvas.getByText('first cannot be empty')).toBeInTheDocument()
   });
+
 
 };
