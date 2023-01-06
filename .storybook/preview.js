@@ -2,12 +2,11 @@ import "../styles/globals.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-if (typeof global.process === 'undefined') {
-  const { worker } = require('../mocks/browser')
-
-  // Start the mocking when each story is loaded.
+ // Start the mocking when each story is loaded.
   // Repetitive calls to the `.start()` method do not register a new worker,
   // but check whether there's an existing once, reusing it, if so.
+if (typeof global.process === 'undefined') {
+  const { worker } = require('../mocks/browser')
   worker.start()
 }
 

@@ -43,5 +43,8 @@ InteractiveTest.play = async ({ canvasElement }) => {
 
   await waitFor(() => {
     expect(canvasElement.querySelector("#result").innerText).toBe("3");
+    //  expect(canvas.getByRole('alert')).toBeInTheDocument()});
+    // expect(canvas.getByText('first cannot be empty')).toBeInTheDocument()
   });
+
 };
