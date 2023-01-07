@@ -15,7 +15,6 @@ import Alert from '@mui/material/Alert';
 import axios from "axios";
 
 import { useState, useRef, ChangeEvent, FormEvent, FocusEvent, useEffect } from "react";
-import { PropaneSharp } from "@mui/icons-material";
 
   interface QueryParams {
     operation: string;
@@ -47,6 +46,7 @@ const Calculator = (props : QueryParams) : JSX.Element => {
      if(props.operation) {
       setOperation(props.operation)
      }
+     console.log('use effect is runnig')
        },[])
 
   const handleFocus= (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -73,7 +73,6 @@ const Calculator = (props : QueryParams) : JSX.Element => {
       first: first.current?.value,
       second: second.current?.value,
     };
-    console.log('props', props)
     
     if(!query.first){
       setFirstError('first cannot be em')
@@ -159,7 +158,7 @@ const Calculator = (props : QueryParams) : JSX.Element => {
           { opError ? <Alert severity="error">operatiion cannot be empty</Alert>:""}
           <FormControl fullWidth>
             <Button variant="contained" type="submit" disabled={isLoading}>
-              Calculate abc
+              Calculate
             </Button>
           </FormControl>
         </Grid2>

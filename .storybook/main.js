@@ -8,6 +8,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "storybook-addon-next",
+    "@storybook/addon-controls",
     // 'storybook-addon-mock'
   ],
   framework: "@storybook/react",

@@ -22,7 +22,7 @@ export const handlers = [
           throw new Error(`Unsupported operation ${params.operation}`);
       }
         return res(
-          ctx.delay(200),
+          // ctx.delay(200),
           ctx.status(200),
           ctx.json({
             result: result,

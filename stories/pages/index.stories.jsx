@@ -17,11 +17,33 @@ Default.parameters = {
   }
 
 export const passParams = Template.bind({});
-passParams.args = {
-    operation: 'multiply',
-    first: '2',
-    second: '2'
+
+passParams.argTypes = {
+  operation: {
+    options: ['add', 'subtract', 'multiply', 'divide'],
+    control: { type: 'radio' },
   }
+}
+passParams.args = {
+  operation: 'multiply',
+  first: '2',
+  second: '3'
+}
+
+passParams.play = async ({ canvasElement }) => {
+  console.log('play is runnning')
+  const canvas = within(canvasElement);
+  setTimeout(async () => {
+    expect(document.getElementById("first").value).toBe("2");
+    expect(document.getElementById("second").value).toBe("3");
+    expect(document.getElementById("operation").value).toBe("multiply");
+    // await waitFor(async () => { 
+    //   userEvent.click(canvas.getByRole("button")) 
+    //   expect(canvasElement.querySelector("#result").innerText).toBe("6");
+    // })
+  }, "5")
+};
+
 export const InteractiveTest = Template.bind({});
 InteractiveTest.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
